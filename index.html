@@ -16,10 +16,12 @@
       <h1 class="logo__title">farmBoard</h1>
       <nav>
         <ul id="menuList">
-          <li><a href="">Home</a></li>
+          <li><a href="./index.html">Home</a></li>
           <li><a href="">About</a></li>
-          <li><a href="">Services</a></li>
           <li><a href="">Contact</a></li>
+          <li id="login-tab"><a href="./login.html">Login</a></li>
+          <li id="signup-tab"><a href="./signup.html">Sign up</a></li>
+          <li id="signout-tab"><a>Signout</a></li>
         </ul>
       </nav>
       <div class="menu-icon" onclick="togglemenu()">
@@ -79,7 +81,7 @@
 
           <label for="tag">Add a Tag (E.g. Fertilizer)</label>
           <div class="form_input">
-            <input type="type" name="tag" id="item-tag" placeholder="Add a Tag...">
+            <input type="type" name="tag" id="item-tag" placeholder="Add a Tag (e.g. Sales)...">
           </div>
 
           <label for="amount">Amount involved in Transaction</label>
@@ -141,7 +143,7 @@
                 <th></th>
               </thead>
               <tbody>
-                <tr id="row-delete-6">
+                <!-- <tr id="row-delete-6">
                   <td>1</td>
                   <td>12-04-2022</td>
                   <td>Kwame</td>
@@ -151,7 +153,7 @@
                   <td><svg class="delete-row" width="20" height="20" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M29.6361 26.52L39.1391 17.0391C39.5552 16.6229 39.789 16.0585 39.789 15.47C39.789 14.8815 39.5552 14.3171 39.1391 13.9009C38.7229 13.4847 38.1585 13.251 37.57 13.251C36.9815 13.251 36.4171 13.4847 36.0009 13.9009L26.52 23.4039L17.0391 13.9009C16.6229 13.4847 16.0585 13.251 15.47 13.251C14.8815 13.251 14.3171 13.4847 13.9009 13.9009C13.4847 14.3171 13.251 14.8815 13.251 15.47C13.251 16.0585 13.4847 16.6229 13.9009 17.0391L23.4039 26.52L13.9009 36.0009C13.6938 36.2063 13.5293 36.4508 13.4171 36.7201C13.305 36.9894 13.2472 37.2783 13.2472 37.57C13.2472 37.8617 13.305 38.1506 13.4171 38.4199C13.5293 38.6892 13.6938 38.9336 13.9009 39.1391C14.1063 39.3462 14.3508 39.5107 14.6201 39.6229C14.8894 39.7351 15.1783 39.7928 15.47 39.7928C15.7617 39.7928 16.0506 39.7351 16.3199 39.6229C16.5892 39.5107 16.8337 39.3462 17.0391 39.1391L26.52 29.6361L36.0009 39.1391C36.2063 39.3462 36.4508 39.5107 36.7201 39.6229C36.9894 39.7351 37.2783 39.7928 37.57 39.7928C37.8617 39.7928 38.1506 39.7351 38.4199 39.6229C38.6892 39.5107 38.9336 39.3462 39.1391 39.1391C39.3462 38.9336 39.5107 38.6892 39.6229 38.4199C39.735 38.1506 39.7928 37.8617 39.7928 37.57C39.7928 37.2783 39.735 36.9894 39.6229 36.7201C39.5107 36.4508 39.3462 36.2063 39.1391 36.0009L29.6361 26.52Z" fill="red"/>
                     </svg></td>
-                </tr>
+                </tr> -->
               </tbody>
               <tfoot></tfoot>
             </table>
@@ -239,7 +241,54 @@
       <img src="./images/whtp.png" alt="" />
     </div>
   </div>
-  <script src="./app.js"></script>
+                                           
+  <script type="module">
+    // import { manageDatabase } from "./main.js";
+
+    // signup btn
+    const signUpTab = document.getElementById("signup-tab");
+    // login btn
+    const loginTab = document.getElementById("login-tab");
+    // signout btn
+    const signOutTab = document.getElementById("signout-tab");
+
+    if (localStorage.getItem("xxcc")) {
+            if (signUpTab) {
+                signUpTab.style.display = "none";
+            }
+
+            if (loginTab) {
+                loginTab.style.display = "none";
+            }
+            
+            if (signOutTab) {
+                signOutTab.style.display = "inline-block";
+            }
+            
+        } else {
+            if (signUpTab) {
+                signUpTab.style.display = "inline-block";
+            }
+
+            if (loginTab) {
+                loginTab.style.display = "inline-block";
+            }
+            
+            if (signOutTab) {
+                signOutTab.style.display = "none";
+            }
+        }
+
+        if (signOutTab) {
+            signOutTab.addEventListener("click", function() {
+                if (localStorage.getItem("xxcc")) {
+                    localStorage.removeItem("xxcc");
+                    window.location.reload();
+                }
+            })
+        }
+  </script>
+  <script type="module" src="./app.js"></script>
 
   <!-- <script>
       // Menu on Mobile View

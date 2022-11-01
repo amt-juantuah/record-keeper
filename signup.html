@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Farm Board</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <script>
+    if (localStorage.getItem("xxcc")) {
+      window.location.href = "index.html"
+    }
+  </script>
+  <div class="container">
+    <div class="navbar">
+      <img src="./images/diamonf.png" class="logo" />
+      <h1 class="logo__title">farmBoard</h1>
+      <nav>
+        <ul id="menuList">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="">Services</a></li>
+        </ul>
+      </nav>
+      <div class="menu-icon" onclick="togglemenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <hr />
+
+    <div class="banner flex-r">
+      <div class="flex-c">
+        <h2>
+          <span class="logo__title">SIGN UP / REGISTER</span>
+        </h2>
+        <br />
+        <h2>Join the SMART family</h2>
+      </div>
+      
+    </div>
+
+    <section class="main flex-c">
+      <div class="record_area">
+        
+        <div id="signup-modal" class="just-cent align-cent flex-c">
+            <form id="signup-form" class="flex-c">
+                <label for="farmName">Name (or Farm Name) </label>
+                <input type="text" name="farmName" id="farm-name" placeholder="Farm Name...">
+                
+                <label for="userEmail">Email (Required) <span class="important">*</span></label>
+                <input required type="email" name="userEmail" id="user-email" placeholder="Email">
+
+                <label for="confirmEmail">Email (Required) <span class="important">*</span></label>
+                <input required type="email" name="confirmEmail" id="confirm-email" placeholder="Confirm Email...">
+
+                <label for="userPassword">Password (Required) <span class="important">*</span></label>
+                <input required type="password" name="userPassword" id="user-password" minlength="6" maxlength="10" placeholder="Password...">
+
+                <label for="confirmPassword">Confirm Password (Required) <span class="important">*</span></label>
+                <input required type="password" name="confirmPassword" id="confirm-password" minlength="6" maxlength="10" placeholder="Confirm Password...">
+
+                <button type="submit">Sign-up</button>
+
+                <span id="signup-error" class="danger">Please Email and Password must be correct and confirmed</span>
+
+                <span>Have an account already? <a href="./login.html">Login</a></span>
+            </form>
+        </div>
+        
+      </div>
+
+    </section>
+  </div>
+
+  
+</body>
+  <script type="module" src="./main.js"></script>
+</html>

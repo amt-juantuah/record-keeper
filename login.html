@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Farm Board</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <script>
+    if (localStorage.getItem("xxcc")) {
+      window.location.href = "index.html"
+    }
+  </script>
+  <div class="container">
+    <div class="navbar">
+      <img src="./images/diamonf.png" class="logo" />
+      <h1 class="logo__title">farmBoard</h1>
+      <nav>
+        <ul id="menuList">
+          <li><a href="">Home</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="">Services</a></li>
+        </ul>
+      </nav>
+      <div class="menu-icon" onclick="togglemenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <hr />
+
+    <div class="banner flex-r">
+      <div class="flex-c">
+        <h2>
+          <span class="logo__title">LOGIN</span> 
+        </h2>
+        <br />
+        <h2>You are a SMART Farmer</h2>
+      </div>
+      
+    </div>
+
+    <section class="main flex-c">
+      <div class="record_area">
+        
+        <div id="login-modal" class="just-cent align-cent flex-c">
+            <form id="login-form" class="flex-c">
+                
+                <label for="userEmail">Email (Required) <span class="important">*</span></label>
+                <input required type="email" name="userEmail" id="login-email" placeholder="Email">
+
+                <label for="userPassword">Password (Required) <span class="important">*</span></label>
+                <input required type="password" name="userPassword" id="login-password" minlength="6" maxlength="10" placeholder="Password...">
+
+                <button type="submit">Login</button>
+
+                <span id="login-error" class="danger">Email or Password may be wrong</span>
+                <span>New here? Don't have an account? <a href="./signup.html">Register</a></span>
+            </form>
+        </div>
+        
+      </div>
+
+    </section>
+  </div>
+</body>
+  <script type="module" src="./main.js"></script>
+</html>

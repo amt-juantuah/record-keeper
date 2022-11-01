@@ -657,3 +657,33 @@ tbody tr td:last-child:hover{
     margin-bottom: 4px;
     color: #ab6b00;
 }
+
+#signup-modal, #login-modal {
+    width: 500px;
+    height: 600px;
+    background-color: #0000004f;
+    border-radius: 4px;
+    margin: 100px auto;
+}
+
+#signup-form, #login-form {
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.danger {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+#signup-error, #login-error {
+    display: none;
+}
+
+#signout-tab {
+    display: none;
+}

@@ -1,5 +1,8 @@
+import { manageDatabase } from "./main.js";
+
+
 //  the Budget Controller
-const farmBudgetController = (function() {
+export const farmBudgetController = (function() {
 
     // function that creates income transaction object
     const IncomeTransaction = function(id, itemDate, itemPerson, itemDescription, itemTag, itemValue) {
@@ -65,19 +68,11 @@ const farmBudgetController = (function() {
                 // create Expense Object
                 let newExpenseItem = new ExpenseTransaction(ID, itemDate, itemPerson, itemDescription, itemTag, itemValue);
                 
-                // push expense object to all data array
+                // data sent to db
+                const dbData = manageDatabase.postDataExpense(localStorage.getItem("xxcc"), newExpenseItem.id, newExpenseItem.itemDate, newExpenseItem.itemPerson, newExpenseItem.itemDescription, newExpenseItem.itemTag, newExpenseItem.itemValue);
+
+                // push item to allData array
                 allData.transactionItems.exp.push(newExpenseItem);
-
-                // calculate total expense
-                // allData.totals.exp += itemValue;
-
-                // // calculate balance
-                // allData.totals.bal -= itemValue;
-
-                // // calculate percentage of income as expense
-                // if (allData.totals.bal >= 0 && allData.totals.inc > 0) {
-                //     allData.totals.perc = Math.round((allData.totals.exp / allData.totals.inc) * 100);
-                // } else allData.totals.perc = -1;
                 
 
                 return newExpenseItem;
@@ -95,23 +90,46 @@ const farmBudgetController = (function() {
                 // create Income object
                 let newIncomeItem = new IncomeTransaction(ID, itemDate, itemPerson, itemDescription, itemTag, itemValue);
 
-                // push income object to data array
+
+                // data sent to db
+                const dbData = manageDatabase.postDataIncome(localStorage.getItem("xxcc"), newIncomeItem.id, newIncomeItem.itemDate, newIncomeItem.itemPerson, newIncomeItem.itemDescription, newIncomeItem.itemTag, newIncomeItem.itemValue);
+
+                // push item to allData array
                 allData.transactionItems.inc.push(newIncomeItem);
-
-                // // calculate total income
-                // allData.totals.inc += itemValue;
-
-                // // calculate balance
-                // allData.totals.bal += itemValue;
 
                 return newIncomeItem;
             }
         },
 
+        // function to retrieve all data from db and add to datastructure
+        // getAllDataFromDB: function(userID) {
+            
+        //     const allDataFromDB = manageDatabase.getUserData(userID);
+        //     console.log(allDataFromDB);
+
+        //     // allData.transactionItems.exp.push(Object.values(allDataFromDB.expenses));
+
+        //     // allData.transactionItems.inc.push(Object.values(allDataFromDB.incomes))
+        // },
+
+        // a function that sets a batch of incomes and expense into allData array
+        setAllDataItems: function(incomes, expenses) {
+            allData.transactionItems.inc = incomes;
+            allData.transactionItems.exp = expenses;
+        },
+
         deleteItem: function(type, ID) {
-            const index = allData.transactionItems[type].indexOf(allData.transactionItems[type].find(item => item.id === ID));
+
+            const itemToDelete = allData.transactionItems[type].find(item => item.id === ID);
+            const index = allData.transactionItems[type].indexOf(itemToDelete);
 
             if (index !== -1) allData.transactionItems[type].splice(index, 1);
+
+            if(type === "exp") {
+                manageDatabase.deleteAnExpense(localStorage.getItem("xxcc"), itemToDelete);
+            } else if (type === "inc") {
+                manageDatabase.deleteAnIncome(localStorage.getItem("xxcc"), itemToDelete);
+            }
         },
 
 
@@ -144,8 +162,8 @@ const farmBudgetController = (function() {
             }
         },
 
-        test: function() {
-            return allData;
+        allDataOut: function() {
+            return allData.transactionItems;
         }
     }
 
@@ -153,7 +171,7 @@ const farmBudgetController = (function() {
 
 
 //  the UI controller
-const UIController = (function() {
+export const UIController = (function() {
     let domStrings = {
         itemType: "item-type",
         itemDate: "item-date",
@@ -195,17 +213,52 @@ const UIController = (function() {
 
         controlAddItemModal: function() {
             // display modal for adding item
-            document.getElementById(domStrings.addNewItem).addEventListener('click', function(){
-                document.getElementById(domStrings.addItemModal).style.display = "flex";
-            })
+            const addI = document.getElementById(domStrings.addNewItem);
+            const cancel = document.getElementById(domStrings.cancelModal);
+            if (addI) {
+                document.getElementById(domStrings.addNewItem).addEventListener('click', function(){
+
+                    if (localStorage.getItem("xxcc")) {
+                        document.getElementById(domStrings.addItemModal).style.display = "flex";
+                    } else {
+                        window.location.href = "login.html"
+                        }
+                    
+                })
+            }
 
             // close modal
-            document.getElementById(domStrings.cancelModal).addEventListener('click', () => {
-                document.getElementById(domStrings.addItemModal).style.display = "none";
-            })
+            if (cancel) {
+                document.getElementById(domStrings.cancelModal).addEventListener('click', () => {
+                    document.getElementById(domStrings.addItemModal).style.display = "none";
+                })
+            }
 
         },
 
+        getDatafromDB: async function(structure) {
+            const userIsLogin = localStorage.getItem("xxcc") ? true : false;
+
+            if(userIsLogin) {
+                const success =await manageDatabase.getUserData(localStorage.getItem("xxcc"), structure);
+                if(success) {
+                    const dataOnReload = structure.allDataOut();
+                    dataOnReload.exp.forEach(item => {
+                        this.setTableRow("exp", item);
+                    })
+
+                    dataOnReload.inc.forEach(item => {
+                        this.setTableRow("inc", item);
+                    })
+
+                    this.setBalances(structure)
+                }
+            } else {
+                console.log("user not logged in");
+            }
+        },
+
+        
         setTableRow: function(type, item) {
             let rowContent, tableRow;
             rowContent = `
@@ -230,6 +283,16 @@ const UIController = (function() {
             }
         },
 
+        // setTables: function(data) {
+        //     for (item of data.exp) {
+        //         this.setTableRow("exp", item)
+        //     }
+
+        //     for (item of data.inc) {
+        //         this.setTableRow("inc", item)
+        //     }
+        // },
+
         deleteTableRow: function(rowID) {
             const elementToDelete = document.getElementById(rowID);
             elementToDelete.parentNode.removeChild(elementToDelete);
@@ -239,18 +302,21 @@ const UIController = (function() {
 
             const records = budget.getBudgetBalance()
 
+            const incomeTotalUI = document.getElementById(domStrings.incomeTotal);
+
             // set total incomes into UI
-            document.getElementById(domStrings.incomeTotal).textContent = "GHC " + records.incomeBalance;
+            if (incomeTotalUI) {
+                document.getElementById(domStrings.incomeTotal).textContent = "GHC " + records.incomeBalance;
 
-            // set total expenses into UI
-            document.getElementById(domStrings.expenseTotal).textContent = "GHC " + records.expenseBalance;
+                // set total expenses into UI
+                document.getElementById(domStrings.expenseTotal).textContent = "GHC " + records.expenseBalance;
 
-            // set total balances into UI
-            document.getElementById(domStrings.balanceTotal).textContent = "GHC " + records.totalBalance;
+                // set total balances into UI
+                document.getElementById(domStrings.balanceTotal).textContent = "GHC " + records.totalBalance;
 
-            // set expense percentage into UI
-            document.getElementById(domStrings.expensePercent).textContent = records.percentageSpent + "%";
-
+                // set expense percentage into UI
+                document.getElementById(domStrings.expensePercent).textContent = records.percentageSpent + "%";
+            }
         },
 
         // clear the form fields after submission 
@@ -260,13 +326,17 @@ const UIController = (function() {
 
         // display real live date and time
         getLiveTime: function() {
+            const timeDate = document.getElementById(domStrings.timeDate);
             const setDateTime = function() {
                 const dateString = new Date().toLocaleString();
                 const formattedString = dateString.replace(",", "-");
                 document.getElementById(domStrings.timeDate).innerText = formattedString;
             }
 
-            setInterval(setDateTime, 1000);
+            if (timeDate) {
+                setInterval(setDateTime, 1000);
+            }
+            
         }
     }
 })();
@@ -294,7 +364,7 @@ const appConstroller = (function(x,y) {
                 const newItem = x.addItem(inputsRecieved.itemType, inputsRecieved.itemDate, inputsRecieved.itemPerson, inputsRecieved.itemDescription, inputsRecieved.itemTag, inputsRecieved.itemValue)
 
                 // 3. Add item to the UI
-                y.setTableRow(inputsRecieved.itemType, newItem);
+                y.setTableRow(inputsRecieved.itemType, newItem)
                 y.clearField(e.target);
 
                 // setbalances
@@ -325,24 +395,26 @@ const appConstroller = (function(x,y) {
             }
         }
 
-        // 4. Calculate totals and balance
-        x.calculateBudget();
-
-        // setbalances
-        y.setBalances(x);
-
         // add item form submit listener
-        document.getElementById(DOMStrings.itemForm).addEventListener('submit', (event)=>{
-            event.preventDefault()
-            controlAddItem(event);
-        });
+        const itemForm = document.getElementById(DOMStrings.itemForm);
+
+        if (itemForm) {
+            document.getElementById(DOMStrings.itemForm).addEventListener('submit', (event)=>{
+                event.preventDefault()
+                controlAddItem(event);
+            });
+        }
 
         // delete item event listener
-        document.getElementById(DOMStrings.tableActivities).addEventListener('click', (event) => {
-            controlDeleteItem(event);
+        const tableActivities = document.getElementById(DOMStrings.tableActivities);
 
-            // console.log(x.test())
-        });
+        if (tableActivities) {
+            document.getElementById(DOMStrings.tableActivities).addEventListener('click', (event) => {
+                controlDeleteItem(event);
+    
+                // console.log(x.test())
+            });
+        }
 
         // set live time 
         y.getLiveTime();
@@ -350,8 +422,24 @@ const appConstroller = (function(x,y) {
         // control modal for adding item
         y.controlAddItemModal();
 
-    }
+        // get data from db to datastructure
+        y.getDatafromDB(x);
 
+        // print out data
+        console.log(x.allDataOut())
+
+        // 4. Calculate totals and balance
+        if (localStorage.getItem("xxcc")) {
+            // call values from DB
+            // x.getDataFromDataBase(localStorage.getItem("xxcc"));
+            // calculate budget
+            x.calculateBudget();
+
+            // setbalances
+            y.setBalances(x);
+        }
+
+    }
     return {
         init: function() {
             constrollerEvents();
