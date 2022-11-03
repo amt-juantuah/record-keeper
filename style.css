@@ -457,6 +457,36 @@ tbody tr td:first-child {
     font-style: normal;
 }
 
+.notif-up {
+    width: 200px;
+    height: 70px;
+    font-size: 13px;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    left: 20px;
+    top: 10px;
+    z-index: 6;
+}
+
+#error-delete,
+#error-add,
+#success-add,
+#success-delete {
+    display: none;
+}
+
+.success-note {
+    background-color: rgb(109, 169, 20);
+}
+
+.error-note {
+    background-color: rgb(211, 33, 30);
+}
+
 .delete-row:hover {
     border-radius: 50%;
     background-color: #ffffff;

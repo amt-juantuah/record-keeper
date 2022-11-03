@@ -53,7 +53,7 @@ export const farmBudgetController = (function() {
     return {
 
         // function to create income or expense object with form data
-        addItem: function(type, itemDate, itemPerson, itemDescription, itemTag, itemValue) {
+        addItem: async function(type, itemDate, itemPerson, itemDescription, itemTag, itemValue) {
             let ID;
             
             // Expense item
@@ -69,10 +69,17 @@ export const farmBudgetController = (function() {
                 let newExpenseItem = new ExpenseTransaction(ID, itemDate, itemPerson, itemDescription, itemTag, itemValue);
                 
                 // data sent to db
-                const dbData = manageDatabase.postDataExpense(localStorage.getItem("xxcc"), newExpenseItem.id, newExpenseItem.itemDate, newExpenseItem.itemPerson, newExpenseItem.itemDescription, newExpenseItem.itemTag, newExpenseItem.itemValue);
+                const dbData = await manageDatabase.postDataExpense(localStorage.getItem("xxcc"), newExpenseItem.id, newExpenseItem.itemDate, newExpenseItem.itemPerson, newExpenseItem.itemDescription, newExpenseItem.itemTag, newExpenseItem.itemValue);
 
                 // push item to allData array
                 allData.transactionItems.exp.push(newExpenseItem);
+
+                // show success status
+                if (dbData) {
+                    UIController.setPopup("success-add");
+                } else {
+                    UIController.setPopup("error-add");
+                }
                 
 
                 return newExpenseItem;
@@ -92,10 +99,17 @@ export const farmBudgetController = (function() {
 
 
                 // data sent to db
-                const dbData = manageDatabase.postDataIncome(localStorage.getItem("xxcc"), newIncomeItem.id, newIncomeItem.itemDate, newIncomeItem.itemPerson, newIncomeItem.itemDescription, newIncomeItem.itemTag, newIncomeItem.itemValue);
+                const dbData = await manageDatabase.postDataIncome(localStorage.getItem("xxcc"), newIncomeItem.id, newIncomeItem.itemDate, newIncomeItem.itemPerson, newIncomeItem.itemDescription, newIncomeItem.itemTag, newIncomeItem.itemValue);
 
                 // push item to allData array
                 allData.transactionItems.inc.push(newIncomeItem);
+
+                // show success status
+                if (dbData) {
+                    UIController.setPopup("success-add");
+                } else {
+                    UIController.setPopup("error-add");
+                }
 
                 return newIncomeItem;
             }
@@ -118,7 +132,7 @@ export const farmBudgetController = (function() {
             allData.transactionItems.exp = expenses;
         },
 
-        deleteItem: function(type, ID) {
+        deleteItem: async function(type, ID) {
 
             const itemToDelete = allData.transactionItems[type].find(item => item.id === ID);
             const index = allData.transactionItems[type].indexOf(itemToDelete);
@@ -126,9 +140,22 @@ export const farmBudgetController = (function() {
             if (index !== -1) allData.transactionItems[type].splice(index, 1);
 
             if(type === "exp") {
-                manageDatabase.deleteAnExpense(localStorage.getItem("xxcc"), itemToDelete);
+                const expDel = await manageDatabase.deleteAnExpense(localStorage.getItem("xxcc"), itemToDelete);
+
+                if (expDel) {
+                    UIController.setPopup("success-delete");
+                } else {
+                    UIController.setPopup("error-delete");
+                }
+
             } else if (type === "inc") {
-                manageDatabase.deleteAnIncome(localStorage.getItem("xxcc"), itemToDelete);
+                const incDel = manageDatabase.deleteAnIncome(localStorage.getItem("xxcc"), itemToDelete);
+
+                if (incDel) {
+                    UIController.setPopup("success-delete");
+                } else {
+                    UIController.setPopup("error-delete");
+                }
             }
         },
 
@@ -193,7 +220,11 @@ export const UIController = (function() {
         cancelModal: "cancel",
         closeModal: "closeM",
         addNewItem: "add",
-        addItemModal: "modal-form"
+        addItemModal: "modal-form",
+        successAdd: "success-add",
+        errorAdd: "error-add",
+        successDelete: "success-delete",
+        errorDelete: "error-delete"
     }
 
     return {
@@ -347,6 +378,17 @@ export const UIController = (function() {
                 setInterval(setDateTime, 1000);
             }
             
+        },
+
+        setPopup: function(domItem) {
+            const DOMItem = document.getElementById(domItem);
+
+            if (DOMItem) {
+                DOMItem.style.display = "flex";
+                setTimeout(function() {
+                    DOMItem.style.display = "none";
+                }, 5000);
+            }
         }
     }
 })();
@@ -360,7 +402,7 @@ const appConstroller = (function(x,y) {
         const DOMStrings = y.getFormStrings();
 
         // function that adds item
-        const controlAddItem = function (e) {
+        const controlAddItem = async function (e) {
             // 1. Get Form Data
             const inputsRecieved = y.getInput()
             
@@ -371,11 +413,16 @@ const appConstroller = (function(x,y) {
             
             if (formValues.length >= 4) {
                 document.getElementById(DOMStrings.errorOnForm).style.display = "none";
-                const newItem = x.addItem(inputsRecieved.itemType, inputsRecieved.itemDate, inputsRecieved.itemPerson, inputsRecieved.itemDescription, inputsRecieved.itemTag, inputsRecieved.itemValue)
+                const newItem = await x.addItem(inputsRecieved.itemType, inputsRecieved.itemDate, inputsRecieved.itemPerson, inputsRecieved.itemDescription, inputsRecieved.itemTag, inputsRecieved.itemValue)
 
                 // 3. Add item to the UI
                 y.setTableRow(inputsRecieved.itemType, newItem)
                 y.clearField(e.target);
+
+                // close modal
+                if (newItem) {
+                    setTimeout(()=>{document.getElementById(DOMStrings.addItemModal).style.display = "none"}, 1000)
+                }
 
                 // setbalances
                 y.setBalances(x);

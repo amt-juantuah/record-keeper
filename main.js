@@ -158,8 +158,10 @@ export const manageDatabase = (function() {
                     userExpenses: arrayUnion(postData)
                 });
                 // console.log("expense data sent")
+                return true;
             } catch (e) {
-                console.log("an error occured: ", e)
+                console.log("an error occured: ", e);
+                return false;
             }
 
 
@@ -194,8 +196,10 @@ export const manageDatabase = (function() {
                 await updateDoc(userRef, {
                     userIncomes: arrayUnion(postData)
                 });
+                return true;
                 // console.log("income data sent")
             } catch (e) {
+                return false;
                 console.log("an error occured: ", e)
             }
         },
@@ -211,9 +215,11 @@ export const manageDatabase = (function() {
                 await updateDoc(userRef, {
                     userIncomes: arrayRemove(item)
                 });
+                return true;
                 // console.log("income data deleted")
             } catch (e) {
-                console.log("an error occured: ", e)
+                console.log("an error occured: ", e);
+                return false;
             }
         },
 
@@ -228,9 +234,11 @@ export const manageDatabase = (function() {
                 await updateDoc(userRef, {
                     userExpenses: arrayRemove(item)
                 });
+                return true;
                 // console.log("expense data deleted")
             } catch (e) {
-                console.log("an error occured: ", e)
+                console.log("an error occured: ", e);
+                return false;
             }
         }
 
