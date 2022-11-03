@@ -21,9 +21,9 @@
       <h1 class="logo__title">farmBoard</h1>
       <nav>
         <ul id="menuList">
-          <li><a href="">Home</a></li>
-          <li><a href="">About</a></li>
-          <li><a href="">Services</a></li>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
         </ul>
       </nav>
       <div class="menu-icon" onclick="togglemenu()">
@@ -34,19 +34,19 @@
     </div>
     <hr />
 
-    <div class="banner flex-r">
+    <div class="loga banner flex-r">
       <div class="flex-c">
         <h2>
           <span class="logo__title">LOGIN</span> 
         </h2>
         <br />
-        <h2>You are a SMART Farmer</h2>
+        <h2>Your Data at your Finger Tips</h2>
       </div>
       
     </div>
 
     <section class="main flex-c">
-      <div class="record_area">
+      <div class="auth-area">
         
         <div id="login-modal" class="just-cent align-cent flex-c">
             <form id="login-form" class="flex-c">
@@ -60,9 +60,11 @@
                 <button type="submit">Login</button>
 
                 <span id="login-error" class="danger">Email or Password may be wrong</span>
-                <span>New here? Don't have an account? <a href="./signup.html">Register</a></span>
+                <span class="auth-redirect">New here? Don't have an account? <a href="./signup.html">Register</a></span>
             </form>
+            
         </div>
+        <div id="acc"></div>
         
       </div>
 
@@ -70,4 +72,19 @@
   </div>
 </body>
   <script type="module" src="./main.js"></script>
+  <script>
+    // Menu on Mobile View
+    let menuList = document.getElementById("menuList");
+
+    menuList.style.maxHeight = "0px";
+    function togglemenu() {
+      if (menuList.style.maxHeight === "0px") {
+        menuList.style.maxHeight = "130px";
+        menuList.style.paddingBottom = "20px";
+      } else {
+        menuList.style.maxHeight = "0px";
+        menuList.style.paddingBottom = "0px";
+      }
+    }
+  </script>
 </html>

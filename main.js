@@ -95,16 +95,12 @@ export const manageDatabase = (function() {
                     userIncomes: [],
                     userExpenses: []
                 });
-                console.log("Document written with ID: ")
+                // console.log("Document written into DB");
+                return true;
             } catch(e) {
-                console.error("Error adding document: ", e);
-            }
-            // set(ref(db, "users/" + userID), {
-                // farmName: farmName,
-                // userEmail: userEmail,
-                // userIncomes: [],
-                // userExpenses: []
-            // })                      
+                // console.error("Error adding document: ", e);
+                return false;
+            }                  
         },
 
         // retrieve a user's data
@@ -114,7 +110,7 @@ export const manageDatabase = (function() {
             try {
                 const docSnap = await getDoc(userRef);
                 if (docSnap.exists()) {
-                    console.log("document data: ", docSnap.data())
+                    // console.log("document data: ", docSnap.data())
                     const data = docSnap.data();
 
                     dataStructure.setAllDataItems(Object.values(data.userIncomes), Object.values(data.userExpenses))
@@ -125,7 +121,7 @@ export const manageDatabase = (function() {
                     return true;
                 } else {
                     // doc.data() will be undefined in this case
-                    console.log("No such document!");
+                    // console.log("No such document!");
                     return false;
                 }
             } catch (e) {
@@ -161,7 +157,7 @@ export const manageDatabase = (function() {
                 await updateDoc(userRef, {
                     userExpenses: arrayUnion(postData)
                 });
-                console.log("expense data sent")
+                // console.log("expense data sent")
             } catch (e) {
                 console.log("an error occured: ", e)
             }
@@ -198,7 +194,7 @@ export const manageDatabase = (function() {
                 await updateDoc(userRef, {
                     userIncomes: arrayUnion(postData)
                 });
-                console.log("income data sent")
+                // console.log("income data sent")
             } catch (e) {
                 console.log("an error occured: ", e)
             }
@@ -215,7 +211,7 @@ export const manageDatabase = (function() {
                 await updateDoc(userRef, {
                     userIncomes: arrayRemove(item)
                 });
-                console.log("income data deleted")
+                // console.log("income data deleted")
             } catch (e) {
                 console.log("an error occured: ", e)
             }
@@ -232,7 +228,7 @@ export const manageDatabase = (function() {
                 await updateDoc(userRef, {
                     userExpenses: arrayRemove(item)
                 });
-                console.log("expense data deleted")
+                // console.log("expense data deleted")
             } catch (e) {
                 console.log("an error occured: ", e)
             }
@@ -290,23 +286,30 @@ const controlAuth = (function(au, dtb, localSt) {
     
                     // firebase create user
                     createUserWithEmailAndPassword(auth, signupDetails.email, signupDetails.password)
-                        .then((userCredential) => {
+                        .then(async (userCredential) => {
                             // Signed in 
                             const user = userCredential.user;
-                            // add new user to firebase RT db
-                            dtb.addNewUser(user.uid, signupDetails.farmName, signupDetails.email);
+                            // add new user to firestore db
+                            const newUserSetToDB = await dtb.addNewUser(user.uid, signupDetails.farmName, signupDetails.email);
 
                             // set user uid into localstorage
                             localSt.setLocalItem("xxcc", user.uid);
 
                             localSt.setLocalItem("name", signupDetails.farmName)
 
-                            window.location.reload();
-
-                            setTimeout (
-                                window.alert(`${signupDetails.farmName} Account Successfully created!!`), 5000
-                            );
-    
+                            if (newUserSetToDB) {
+                                window.location.reload();
+                                
+                            } else {
+                                localStorage.clear();
+                                const userToDelete = auth.currentUser;
+                                deleteUser(userToDelete).then(() => {
+                                    // console.log("deleted user")
+                                }).catch((e) => {
+                                    console.log(e)
+                                })
+                                window.alert("An error occurred. Check your internet connection");
+                            }    
                         })
                         .catch((error) => {
                             document.getElementById(domStrings.signupError).style.display = "block";

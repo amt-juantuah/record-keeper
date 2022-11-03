@@ -34,7 +34,7 @@
     </div>
     <hr />
 
-    <div class="banner flex-r">
+    <div class="signa banner flex-r">
       <div class="flex-c">
         <h2>
           <span class="logo__title">SIGN UP / REGISTER</span>
@@ -46,18 +46,18 @@
     </div>
 
     <section class="main flex-c">
-      <div class="record_area">
+      <div class="auth-area">
         
         <div id="signup-modal" class="just-cent align-cent flex-c">
             <form id="signup-form" class="flex-c">
-                <label for="farmName">Name (or Farm Name) </label>
-                <input type="text" name="farmName" id="farm-name" placeholder="Farm Name...">
+                <label for="farmName">Name</label>
+                <input type="text" name="farmName" id="farm-name" placeholder="Your Name...">
                 
                 <label for="userEmail">Email (Required) <span class="important">*</span></label>
-                <input required type="email" name="userEmail" id="user-email" placeholder="Email">
+                <input required type="email" name="userEmail" id="user-email" placeholder="Your Email...">
 
-                <label for="confirmEmail">Email (Required) <span class="important">*</span></label>
-                <input required type="email" name="confirmEmail" id="confirm-email" placeholder="Confirm Email...">
+                <label for="confirmEmail">Confirm Email (Required) <span class="important">*</span></label>
+                <input required type="email" name="confirmEmail" id="confirm-email" placeholder="Your Email Again...">
 
                 <label for="userPassword">Password (Required) <span class="important">*</span></label>
                 <input required type="password" name="userPassword" id="user-password" minlength="6" maxlength="10" placeholder="Password...">
@@ -69,10 +69,10 @@
 
                 <span id="signup-error" class="danger">Please Email and Password must be correct and confirmed</span>
 
-                <span>Have an account already? <a href="./login.html">Login</a></span>
+                <span class="auth-redirect">Have an account already? <a href="./login.html">Login</a></span>
             </form>
         </div>
-        
+        <div id="acc"></div>
       </div>
 
     </section>
@@ -81,4 +81,19 @@
   
 </body>
   <script type="module" src="./main.js"></script>
+  <script>
+    // Menu on Mobile View
+    let menuList = document.getElementById("menuList");
+
+    menuList.style.maxHeight = "0px";
+    function togglemenu() {
+      if (menuList.style.maxHeight === "0px") {
+        menuList.style.maxHeight = "130px";
+        menuList.style.paddingBottom = "20px";
+      } else {
+        menuList.style.maxHeight = "0px";
+        menuList.style.paddingBottom = "0px";
+      }
+    }
+  </script>
 </html>

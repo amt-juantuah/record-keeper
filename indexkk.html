@@ -16,42 +16,36 @@
       <h1 class="logo__title">farmBoard</h1>
       <nav>
         <ul id="menuList">
+          <p id="time-date"></p>
           <li><a href="./index.html">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="">Contact</a></li>
           <li id="login-tab"><a href="./login.html">Login</a></li>
           <li id="signup-tab"><a href="./signup.html">Sign up</a></li>
           <li id="signout-tab"><a>Signout</a></li>
         </ul>
       </nav>
-      <div class="menu-icon" onclick="togglemenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+
     </div>
     <hr />
 
-    <div class="banner flex-r">
+    <!-- <div class="banner flex-r">
       <div class="flex-c">
         <h2>
           At <span class="logo__title">farmBoard</span> we support you to
           GROW!!
         </h2>
         <br />
-        <h2>Want to keep your eye on your work and personal Data?</h2>
-        <h2>Why not have Your Data at your Finger Tips! Right Here!</h2><br>
+        <h2>Are you a SMART Farmer?</h2>
+        <h2>Why not have All your Records in One Place! Right Here!</h2><br>
         <hr>
-        <p id="time-date"></p>
+        
       
       </div>
       
-    </div>
+    </div> -->
 
     <div id="modal-form">
-      <svg id="closeM" width="30" height="30" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M29.6361 26.52L39.1391 17.0391C39.5552 16.6229 39.789 16.0585 39.789 15.47C39.789 14.8815 39.5552 14.3171 39.1391 13.9009C38.7229 13.4847 38.1585 13.251 37.57 13.251C36.9815 13.251 36.4171 13.4847 36.0009 13.9009L26.52 23.4039L17.0391 13.9009C16.6229 13.4847 16.0585 13.251 15.47 13.251C14.8815 13.251 14.3171 13.4847 13.9009 13.9009C13.4847 14.3171 13.251 14.8815 13.251 15.47C13.251 16.0585 13.4847 16.6229 13.9009 17.0391L23.4039 26.52L13.9009 36.0009C13.6938 36.2063 13.5293 36.4508 13.4171 36.7201C13.305 36.9894 13.2472 37.2783 13.2472 37.57C13.2472 37.8617 13.305 38.1506 13.4171 38.4199C13.5293 38.6892 13.6938 38.9336 13.9009 39.1391C14.1063 39.3462 14.3508 39.5107 14.6201 39.6229C14.8894 39.7351 15.1783 39.7928 15.47 39.7928C15.7617 39.7928 16.0506 39.7351 16.3199 39.6229C16.5892 39.5107 16.8337 39.3462 17.0391 39.1391L26.52 29.6361L36.0009 39.1391C36.2063 39.3462 36.4508 39.5107 36.7201 39.6229C36.9894 39.7351 37.2783 39.7928 37.57 39.7928C37.8617 39.7928 38.1506 39.7351 38.4199 39.6229C38.6892 39.5107 38.9336 39.3462 39.1391 39.1391C39.3462 38.9336 39.5107 38.6892 39.6229 38.4199C39.735 38.1506 39.7928 37.8617 39.7928 37.57C39.7928 37.2783 39.735 36.9894 39.6229 36.7201C39.5107 36.4508 39.3462 36.2063 39.1391 36.0009L29.6361 26.52Z" fill="#fff"/>
-        </svg>
       <div class="add_item flex-c align-cent">
         <form id="add_item_form" class="flex-c">
           <div class="planning-gif">
@@ -112,22 +106,21 @@
       </div>
     </div>
 
-    <section class="main flex-c">
-      <div id="how-it-works" class="flex-c">
-        <h3>Note:</h3>
-        <hr>
-        <ol>
-          <li>You can save all your daily farm transactions safely on farmBoard</li>
-          <li>You can also delete a record you no longer need</li>
-          <li>You are required to choose whether the record or tansaction generates direct income or expense. If your record is not associated with either your incomes or expense, then go ahead and select any, and leave the amount section as empty </li>
-          <li>You are required to give a description of the record. Eg. Sold 10 bags of yam tubers; Or, Paid my debt owed to Nafisa; Or Payed workers on the farm </li>
-          <li>It is optional to identify the date of the record or transaction. If left empty, current day's date will be picked</li>
-          <li>You can also set the name of the person or organisation you engaged or had the transaction with. Eg. If you payed money or recieved money from someone, you can write the person's name</li>
-          <li>If the record does not involve an amount payed or recieved, leave as empty or enter zero(0).</li>
-        </ol>
+    <div class="add-bar">
+      <div id="add" class="flex-c align-cent just-cent">
+        <span>Add New Record</span>
       </div>
-      <div id="add" class="flex-c align-cent just-cent"><span>Add New Record</span></div>
+    </div>
+
+    <section class="main flex-r">      
       <div class="record_area">
+        
+        <div class="total-balance flex-r">
+          <p>Balance as at Today</p>
+          <div class="xccx">
+            <p id="total-balance">GHC 0.00</p>
+          </div>
+        </div>
         
         <div id="table-activities-delete" class="activities">
           <!-- Income Table -->
@@ -137,10 +130,10 @@
                 Your Income Records
               </caption>
               <thead>
-                <th><span>ID</span></th>
+                <th><span>Record ID</span></th>
                 <th><span>Date</span></th>
                 <th><span>Name</span></th>
-                <th><span>Description</span></th>
+                <th><span>Description of Record</span></th>
                 <th><span>Tag</span></th>
                 <th><span>Value</span></th>
                 <th></th>
@@ -162,6 +155,7 @@
             </table>
           </div>
 
+
           <!-- Expense Table -->
           <div class="table-section-scroll">
             <table id="expense-table">
@@ -170,10 +164,10 @@
               </caption>
 
               <thead>
-                <th><span>ID</span></th>
+                <th><span>Record ID</span></th>
                 <th><span>Date</span></th>
                 <th><span>Name</span></th>
-                <th><span>Description</span></th>
+                <th><span>Description of Record</span></th>
                 <th><span>Tag</span></th>
                 <th><span>Value</span></th>
                 <th></th>
@@ -192,34 +186,45 @@
             </table>
           </div>
         </div>
+      
       </div>
+      <div class="main-aside">
 
-      <div class="balance-section flex-r">
-        <div class="total-income flex-r">
-          <p>Incomes</p>
-          <div class="xccx">
-            <p id="income-total-balance">GHC 0.00</p>
-          </div>
-        </div>
-        <div class="total-expense flex-r">
-          <p>Expenses</p>
-          <div class="flex-r">
+        <div class="balance-section flex-r">
+          <div class="total-income flex-r">
+            <p>Incomes</p>
             <div class="xccx">
-              <p id="expense-total-balance">GHC 0.00</p>            
+              <p id="income-total-balance">GHC 0.00</p>
             </div>
-            <div id="exp-percent">100%</div>
+          </div>
+          <div class="total-expense flex-r">
+            <p>Expenses</p>
+            <div class="flex-r">
+              <div class="xccx">
+                <p id="expense-total-balance">GHC 0.00</p>            
+              </div>
+              <div id="exp-percent">100%</div>
+            </div>
           </div>
         </div>
-        <div class="total-balance flex-r">
-          <p>Balance as at Today</p>
-          <div class="xccx">
-            <p id="total-balance">GHC 0.00</p>
-          </div>
+        
+        <div id="how-it-works" class="flex-c">
+          <h3>Note:</h3>
+          <hr>
+          <ol>
+            <li>You can save all your daily farm transactions safely on farmBoard</li>
+            <li>You can also delete a record you no longer need</li>
+            <li>You are required to choose whether the record or tansaction generates direct income or expense. If your record is not associated with either your incomes or expense, then go ahead and select any, and leave the amount section as empty </li>
+            <li>You are required to give a description of the record. Eg. Sold 10 bags of yam tubers; Or, Paid my debt owed to Nafisa; Or Payed workers on the farm </li>
+            <li>It is optional to identify the date of the record or transaction. If left empty, current day's date will be picked</li>
+            <li>You can also set the name of the person or organisation you engaged or had the transaction with. Eg. If you payed money or recieved money from someone, you can write the person's name</li>
+            <li>If the record does not involve an amount payed or recieved, leave as empty or enter zero(0).</li>
+          </ol>
         </div>
       </div>
 
-      <div class="period">
-        <h1 id="time-date" class="year">2022</h1>
+      <!-- <div class="period">
+        <h1 class="year">2022</h1>
         <div class="months-thumbs">
           <div class="each-month">Jan</div>
           <div class="each-month">Feb</div>
@@ -234,7 +239,7 @@
           <div class="each-month">Nov</div>
           <div class="each-month">Dec</div>
         </div>
-      </div>
+      </div> -->
     </section>
 
     <div class="socials">
@@ -285,7 +290,7 @@
         if (signOutTab) {
             signOutTab.addEventListener("click", function() {
                 if (localStorage.getItem("xxcc")) {
-                    localStorage.removeItem("xxcc");
+                    localStorage.clear();
                     window.location.reload();
                 }
             })
@@ -293,21 +298,19 @@
   </script>
   <script type="module" src="./app.js"></script>
 
-  <script>
+  <!-- <script>
       // Menu on Mobile View
       let menuList = document.getElementById("menuList");
 
       menuList.style.maxHeight = "0px";
       function togglemenu() {
         if (menuList.style.maxHeight === "0px") {
-          menuList.style.maxHeight = "150px";
-          menuList.style.paddingBottom = "20px";
+          menuList.style.maxHeight = "130px";
         } else {
           menuList.style.maxHeight = "0px";
-          menuList.style.paddingBottom = "0px";
         }
       }
-    </script>
+    </script> -->
 </body>
 
 </html>

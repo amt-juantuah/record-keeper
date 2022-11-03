@@ -7,6 +7,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -51,11 +52,20 @@ option {
     cursor: pointer; */
 }
 
+.menu-icon:hover span {
+    height: 3px;
+}
+
 .menu-icon span {
-    width: 32px;
+    width: 27px;
     height: 1px;
-    margin: 5px;
-    border: 1px solid black;
+    margin-top: 3px;
+    border-top: 3px solid #934cff;
+    transition: height 200ms;
+}
+
+a {
+    cursor: pointer;
 }
 
 nav {
@@ -78,6 +88,7 @@ nav ul li a {
 nav ul li a:hover {
     color: #84dcff;
     text-shadow: 1px 2px #707070;
+    border-bottom:3px solid #303030c9;
 }
 
 .row {
@@ -85,112 +96,6 @@ nav ul li a:hover {
     justify-content: space-between;
     align-items: center;
     margin: 100px 0;
-}
-
-/* colum 1 */
-
-.col-1 {
-    flex-basis: 40%;
-    position: relative;
-    margin-left: 50px;
-}
-
-.col-1 h2 {
-    font-size: 54px;
-}
-
-.col-1 h3 {
-    font-size: 30px;
-    color: #707070;
-    font-weight: 100;
-    margin: 20px 0 10px;
-
-}
-
-.col-1 p {
-    font-size: 30px;
-    color: #b7b7b7;
-    font-weight: 100;
-}
-
-.col-1 h4 {
-    margin: 30px 0;
-    font-size: 20px;
-}
-
-.line-1::after {
-    content: '';
-    width: 10px;
-    height: 75%;
-    background: linear-gradient(#84dcff, #2cce0b);
-    position: absolute;
-    left: -40px;
-    top: 8px;
-}
-
-.line-2::after {
-    content: '';
-    width: 10px;
-    height: 75%;
-    background: linear-gradient(#84dcff, #4e92ca);
-    position: absolute;
-    left: -40px;
-    top: 8px;
-}
-
-.line-3::after {
-    content: '';
-    width: 10px;
-    height: 75%;
-    background: linear-gradient(#84dcff, #f4a2ff);
-    position: absolute;
-    left: -40px;
-    top: 8px;
-}
-
-/* column 2 */
-.col-2 {
-    display: flex;
-    flex-basis: 60%;
-    align-items: center;
-    position: relative;
-    justify-content: center;
-}
-
-.col-2 .driver {
-    width: 60%;
-    box-shadow: 10px 5px #84dcff;
-    border-radius: 35px 0 0 5px;
-}
-
-.color-box-1 {
-    position: absolute;
-    height: 10%;
-    width: 100%;
-    z-index: -1;
-    transform: translateX(150px);
-    box-shadow: 10px 5px #e0ffad;
-    background: linear-gradient(to right, #84dcff, #2cce0b);
-}
-
-.color-box-2 {
-    position: absolute;
-    height: 10%;
-    width: 100%;
-    z-index: -1;
-    transform: translateX(150px);
-    box-shadow: 10px 5px #e0ffad;
-    background: linear-gradient(to right, #84dcff, #4e92ca);
-}
-
-.color-box-3 {
-    position: absolute;
-    height: 10%;
-    width: 100%;
-    z-index: -1;
-    transform: translateX(150px);
-    box-shadow: 10px 5px #e0ffad;
-    background: linear-gradient(to right, #84dcff, #f4a2ff);
 }
 
 .socials img {
@@ -253,18 +158,31 @@ nav ul li a:hover {
     justify-content: space-around;
 }
 
+.loga.banner {
+    background-image: url('./images/loga.jpg');
+}
+
+.signa.banner {
+    background-image: url('./images/signa.jpg');
+}
+
 .banner div {
     text-align: center;
     width: 500px;
-    background-color: rgba(255, 255, 255, 0.237);
-    height: 40%;
+    background-color: #ffffffa1;
+    height: 200px;
     margin-top: 40px;
     padding: 20px;
     border-radius: 8px;
 }
 
+.banner div h2 {
+    font-size: 20px;
+    font-weight: 200;
+}
+
 #time-date {
-    color: #ffbf0c;
+    color: #4a4446;
     font-size: 20px;
     margin-top: 10px;
 }
@@ -280,6 +198,13 @@ nav ul li a:hover {
     background: #fff;
     margin: auto;
     border-radius: 15px;
+}
+
+.auth-area {
+    width: 500px;
+    background: #fff;
+    margin: auto;
+    border-radius: 15px 15px 0 0;
 }
 
 .balance-section {
@@ -312,7 +237,7 @@ nav ul li a:hover {
 }
 
 .add_item {
-    width: 40%;
+    width: 400px;
     height: 480px;
     background-color: #fff;
     border-radius: 10px;
@@ -324,10 +249,6 @@ nav ul li a:hover {
 label {
     font-size: 12px;
     margin-bottom: 4px;
-}
-
-.add_item::-webkit-scrollbar {
-
 }
 
 .activities {
@@ -368,7 +289,7 @@ table thead th {
 
 .form_input {
     height: 40px;
-    width: 90%;
+    width: 100%;
     border: 1px solid #0000005b;
     display: flex;
     justify-content: center;
@@ -384,7 +305,7 @@ table thead th {
 
 .form_input select,
 .form_input input {
-    width: 80%;
+    width: 100%;
     border: 0;
     height: 30px;
     outline: 0;
@@ -424,19 +345,29 @@ table thead th {
     height: 40px;
     cursor: pointer;
     border-radius: 4px;
-    background-color: rgb(37, 104, 255);
+    background-color: rgb(147 76 255);
     margin: 20px auto;
     color: #fff;
+}
+
+#add:hover {
+    background-color: rgb(84, 0, 210);
 }
 
 .btns #cancel {
     background-color: rgba(255, 0, 0, 0.674);
 }
 
-.btns #cancel:hover,
-button#submit_record:hover,
-#add:hover {
-    opacity: 0.7;
+.btns #cancel:hover {
+    background-color: rgb(255, 0, 0)
+}
+
+button#submit_record:hover {
+    background: #1a1aff;
+}
+
+#closeM {
+    cursor: pointer;
 }
 
 button#submit_record {
@@ -448,7 +379,7 @@ button#submit_record {
 
 .logo__title {
     font-family: 'Kumbh Sans', sans-serif;
-    color: #2568ff;
+    color: #934cff;
     cursor: pointer;
 }
 
@@ -465,6 +396,9 @@ table {
 
 table caption {
     font-family: 'Kumbh Sans', sans-serif;
+    color: #934cff;
+    font-size: 15px;
+    font-weight: 800;
 }
 
 tbody {
@@ -541,7 +475,7 @@ tbody tr td:last-child:hover{
 .balance-section .total-income,
 .balance-section .total-expense,
 .balance-section .total-balance {
-    height: 50px;
+    height: 70px;
     width: 300px;
     align-items: center;
     justify-content: space-between;
@@ -565,10 +499,10 @@ tbody tr td:last-child:hover{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 60px;
-    width: 120px;
+    height: 37px;
+    width: 90px;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.387);
+    background-color: #fff;
     /* padding: 10px; */
     font-size: 12px;
     font-weight: 600;
@@ -623,17 +557,51 @@ tbody tr td:last-child:hover{
     position: absolute;
 }
 
+.auth-redirect {
+    font-size: 12px;
+}
+
+#signup-form input, #login-form input {
+    width: 100%;
+    height: 40px;
+    margin: 0 auto 28px auto;
+    border: 1px solid #a86eff;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+
+#signup-form button, #login-form button {
+    width: 100%;
+    height: 40px;
+    margin: 0 auto;
+    background-color: #a86eff;
+    border-radius: 4px;
+    border: none;
+}
+
+
 #modal-form {
-    position: absolute;
+    position: fixed;
+    top: 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     height: 86vh;
     width: 66vw;
-    z-index: 3;
+    z-index: 5;
     background: #96999885;
     margin-left: 17vw;
     margin-right: 17vw;
     border: 2px solid #0000006b;
     border-radius: 7px;
     display: none;
+    flex-direction: column;
+}
+
+#modal-form svg {
+    align-self: flex-end;
+    background-color: #ff15159a;
+    border-radius: 50%;
 }
 
 #how-it-works {
@@ -642,7 +610,7 @@ tbody tr td:last-child:hover{
     width: 350px;
     background-color: #fff;
     margin: auto;
-    color: rgb(0 26 255 / 98%);
+    color: #934cff;
     font-size: 12px;
     padding: 12px;
     overflow: auto;
@@ -660,18 +628,30 @@ tbody tr td:last-child:hover{
 
 #signup-modal, #login-modal {
     width: 500px;
-    height: 600px;
-    background-color: #0000004f;
+    height: auto;
+    background-color: #fff;
     border-radius: 4px;
-    margin: 100px auto;
+    margin: 20px auto;
 }
 
 #signup-form, #login-form {
-    height: 300px;
+    height: auto;
     width: 300px;
     margin: auto;
     background-color: #fff;
     border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#acc {
+    width: 300px;
+    height: 100px;
+    background-image: url('./images/acc.jpg');
+    border-radius: 5px 5px 0 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
 }
 
 .danger {
@@ -686,4 +666,171 @@ tbody tr td:last-child:hover{
 
 #signout-tab {
     display: none;
+}
+
+
+@media only screen and (max-width: 700px) {
+    nav ul {
+        background: linear-gradient(to right, #84dcff, #8299ff);
+        width: 100%;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+        top: 75px;
+        padding-right: 10%;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    nav ul li a {
+        color: #fff;
+    }
+    
+    .menu-icon {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    #menuList {
+        overflow: hidden;
+        transition: 0.5s;
+        border-bottom: 2px solid #889b44;
+    }
+
+    .record_area {
+        min-width: 327px;
+        padding: 0px;
+        margin-top: 70px;
+    }
+
+    .auth-area {
+        width: 327px;
+        margin-top: 0;
+    }
+
+    .logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .each-month {
+        height: 40px;
+        width: 40px;
+    }
+
+    .each-month:hover {
+        height: 41px;
+        width: 41px;
+        -webkit-box-reflect:unset;
+        border: none;
+        outline-offset: 0px;
+        outline-style: hidden;
+        outline-color: #2566ff6c;
+    }
+
+    .banner {
+        /* width: 100vw; */
+        height: 200px;
+    }
+
+    .banner div {
+        width: 327px;
+        height: 100px;
+        padding: 8px;
+    }
+
+    .banner div h2 {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    #time-date {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .banner div br {
+        display: none;
+    }
+
+    h1.logo__title {
+        font-size: 1.5em;
+    }
+
+    #how-it-works {
+        width: 281px;
+        font-size: 11px;
+        height: 250px;
+        line-height: 13px;
+        padding: 5px;
+    }
+
+    #add {
+        width: 281px;
+        /* margin: 50px auto; */
+        font-size: 13px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 4;
+    }
+
+    .activities {
+        min-width: 327px;
+        /* height: auto; */
+        /* padding: 20px; */
+        margin: auto;
+    }
+
+    .balance-section.flex-r {
+        flex-flow: column;
+        min-width: 327px;
+        height: auto;
+    }
+
+    .navbar {
+        padding: 0 7px;
+    }
+
+    .period {
+        min-width: 327px;
+    }
+
+    .months-thumbs {
+        width: 327px;
+        justify-content: space-evenly;
+        row-gap: 10px;
+        margin: 33px auto;
+    }
+
+    td {
+        font-size: 11px;
+        font-style: normal;
+    }
+
+    #modal-form {
+        width: 327px;
+        margin: auto;
+    }
+
+    .add_item {
+        width: 320px;
+        height: 400px;
+        margin: auto;
+    }
+
+    #signup-modal,
+    #login-modal {
+        width: 327px;
+        height: auto;
+    }
+
+    #signup-form, #login-form {
+        width: 259px;
+    }
 }

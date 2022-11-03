@@ -191,6 +191,7 @@ export const UIController = (function() {
         tableRowDelete: "delete-row",
         timeDate: "time-date",
         cancelModal: "cancel",
+        closeModal: "closeM",
         addNewItem: "add",
         addItemModal: "modal-form"
     }
@@ -215,6 +216,8 @@ export const UIController = (function() {
             // display modal for adding item
             const addI = document.getElementById(domStrings.addNewItem);
             const cancel = document.getElementById(domStrings.cancelModal);
+            const close = document.getElementById(domStrings.closeModal);
+
             if (addI) {
                 document.getElementById(domStrings.addNewItem).addEventListener('click', function(){
 
@@ -230,6 +233,12 @@ export const UIController = (function() {
             // close modal
             if (cancel) {
                 document.getElementById(domStrings.cancelModal).addEventListener('click', () => {
+                    document.getElementById(domStrings.addItemModal).style.display = "none";
+                })
+            }
+
+            if (close) {
+                document.getElementById(domStrings.closeModal).addEventListener('click', () => {
                     document.getElementById(domStrings.addItemModal).style.display = "none";
                 })
             }
@@ -254,7 +263,8 @@ export const UIController = (function() {
                     this.setBalances(structure)
                 }
             } else {
-                console.log("user not logged in");
+                // console.log("user not logged in");
+                "";
             }
         },
 
@@ -426,7 +436,7 @@ const appConstroller = (function(x,y) {
         y.getDatafromDB(x);
 
         // print out data
-        console.log(x.allDataOut())
+        // console.log(x.allDataOut())
 
         // 4. Calculate totals and balance
         if (localStorage.getItem("xxcc")) {
