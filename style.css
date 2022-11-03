@@ -252,7 +252,6 @@ label {
 }
 
 .activities {
-    width: 70%;
     height: 100%;
     padding: 20px;
     margin: auto;
@@ -282,9 +281,17 @@ table thead th {
 
 .add_item .planning-gif {
     width: 150px;
-    height: 150px;                  
+    height: 150px;
     margin: auto;
-    display: contents;
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.planning-gif img {
+    width: 150px;
+    height: 150px;
 }
 
 .form_input {
@@ -431,7 +438,7 @@ tbody tr:last-child td {
 
 th, td {
     border-top: 1px solid rgba(0, 0, 0, 0.072);
-    width: 120px;
+    width: 152px;
     height: 60px;
     text-align: center;
     cursor: pointer;
@@ -702,7 +709,7 @@ tbody tr td:last-child:hover{
     }
 
     .record_area {
-        min-width: 327px;
+        min-width: 360px;
         padding: 0px;
         margin-top: 70px;
     }
@@ -781,9 +788,7 @@ tbody tr td:last-child:hover{
     }
 
     .activities {
-        min-width: 327px;
-        /* height: auto; */
-        /* padding: 20px; */
+        min-width: 350px;
         margin: auto;
     }
 
@@ -809,8 +814,16 @@ tbody tr td:last-child:hover{
     }
 
     td {
-        font-size: 11px;
+        font-size: 10px;
         font-style: normal;
+    }
+
+    th {
+        font-size: 12px;
+    }
+
+    th, td {
+        width: 120px;
     }
 
     #modal-form {
