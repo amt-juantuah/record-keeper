@@ -457,10 +457,6 @@ tbody tr td:first-child {
     font-style: normal;
 }
 
-.delete-row {
-    visibility: hidden;
-}
-
 .delete-row:hover {
     border-radius: 50%;
     background-color: #ffffff;
@@ -477,6 +473,10 @@ thead th:last-child, tbody tr td:last-child {
 
 tbody tr td:last-child:hover{
     background-color: rgb(226, 160, 160) !important;
+}
+
+tbody tr td:last-child{
+    background-color: rgb(226, 222, 160) !important;
 }
 
 .balance-section .total-income,
